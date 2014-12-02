@@ -39,7 +39,7 @@ module.exports = function (gulp, <%= classy %>Paths) {
   //////////////////////////////
   // Watch Task
   //////////////////////////////
-  gulp.task('<%= slug %>-watch', function () {
+  gulp.task('<%= slug %>:watch', function () {
     return gulp.watch(<%= classy %>Paths)
       .on('change', function (event) {
         // Add absolute and relative (to Gulpfile) paths
