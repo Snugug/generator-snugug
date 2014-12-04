@@ -7,6 +7,7 @@ var yosay = require('yosay');
 var SnugugGenerator = yeoman.generators.Base.extend({
   initializing: function () {
     this.pkg = require('../package.json');
+    this.pkg.files.shift();
   },
 
   prompting: function () {
@@ -18,36 +19,25 @@ var SnugugGenerator = yeoman.generators.Base.extend({
     ));
 
     var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
+      type: 'list',
+      name: 'subgen',
+      message: 'Which generator would you like to run?',
+      choices: this.pkg.files
     }];
 
     this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
+      this.subgen = props.subgen;
 
       done();
     }.bind(this));
   },
 
-  writing: {
-    app: function () {
-      this.dest.mkdir('app');
-      this.dest.mkdir('app/templates');
-
-      this.src.copy('_package.json', 'package.json');
-      this.src.copy('_bower.json', 'bower.json');
-    },
-
-    projectfiles: function () {
-      this.src.copy('editorconfig', '.editorconfig');
-      this.src.copy('jshintrc', '.jshintrc');
-    }
-  },
-
-  end: function () {
-    this.installDependencies();
+  default: function () {
+    this.composeWith('snugug:' + this.subgen, {
+      options: {
+        'skip-install': this.options['skip-install']
+      }
+    });
   }
 });
 
