@@ -53,9 +53,14 @@ module.exports = function (options) {
 
 
     //////////////////////////////
-    // Return Callback
+    // Push the file back to the stream!
     //////////////////////////////
-    return cb();
+    this.push(file);
+
+    //////////////////////////////
+    // Callback to tell us we're done
+    //////////////////////////////
+    cb();
   })
 
   return compile;
