@@ -19,7 +19,8 @@
   "files": [
     "app",
     "js",
-    "gulp-task"
+    "gulp-task",
+    "gulp-plugin"
   ],
   "keywords": [
     "yeoman-generator"
